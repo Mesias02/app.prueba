@@ -1,0 +1,27 @@
+
+server:
+  port: 8081
+  error:
+    include-message: always
+#Configuracion de spring
+spring:
+  #Configuracion de migracion
+  flyway:
+    enabled: true
+    baselineVersion: 1
+    locations:
+      classpath: db/migration
+    sqlMigrationSuffixes: .sql
+    baselineOnMigrate: true
+    sqlMigrationPrefix: V
+    schemas: public
+
+  datasource:
+    url: jdbc:postgresql://jelani.db.elephantsql.com:5432/uuivxkvs?socketTimeout=3
+    username: uuivxkvs
+    password: 7HvqYmrKQ3nuUb3eBy0SyhnMJt_cu9-i
+    driverClassName: org.postgresql.Driver
+
+  spring:
+    flyway:
+      locations: classpath:db/migration
