@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS reminders (
     user_id INT NOT NULL,
     description VARCHAR (225) NOT NULL,
     date_time TIMESTAMP NOT NULL,
-    status reminder_status DEFAULT 'PENDING',
+    status_reminder_status BOOLEAN ,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
  );
