@@ -1,14 +1,15 @@
 package com.example.app.prueba.service;
 
+import com.example.app.prueba.dto.ReminderDto;
 import com.example.app.prueba.entity.Reminder;
+import com.example.app.prueba.mapper.AppMapper;
 import com.example.app.prueba.repository.ReminderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
-import static com.sun.beans.introspect.PropertyInfo.Name.description;
+import java.util.stream.Collectors;
 
 @Service
 public class ReminderService {
@@ -16,40 +17,33 @@ public class ReminderService {
     @Autowired
     private ReminderRepository reminderRepository;
 
-    // Crear o actualizar un Recordatorio
-    public Reminder saveReminder(Reminder reminder) {
-        return reminderRepository.save(reminder);
+    public ReminderDto saveReminder(ReminderDto reminderDTO) {
+        Reminder reminder = AppMapper.toReminder(reminderDTO);
+        Reminder savedReminder = reminderRepository.save(reminder);
+        return AppMapper.toReminderDTO(savedReminder);
     }
 
-    // Obtener un Recordatorio por ID
-    public Optional<Reminder> getReminderById(Long id) {
-        return reminderRepository.findById(id);
+    public Optional<ReminderDto> getReminderById(Long id) {
+        return reminderRepository.findById(id).map(AppMapper::toReminderDTO);
     }
 
-    // Obtener todos los Recordatorios
-    public List<Reminder> getAllReminders() {
-        return reminderRepository.findAll();
+    public List<ReminderDto> getAllReminders() {
+        return reminderRepository.findAll().stream()
+                .map(AppMapper::toReminderDTO)
+                .collect(Collectors.toList());
     }
 
-    // Eliminar un Recordatorio
     public void deleteReminder(Long id) {
         reminderRepository.deleteById(id);
     }
 
-    // Actualizar un Recordatorio
-    public Optional<Reminder> updateReminder(Long id, Reminder reminder) {
+    public Optional<ReminderDto> updateReminder(Long id, ReminderDto reminderDTO) {
         if (reminderRepository.existsById(id)) {
+            Reminder reminder = AppMapper.toReminder(reminderDTO);
             reminder.setId(id);
-            return Optional.of(reminderRepository.save(reminder));
+            Reminder updatedReminder = reminderRepository.save(reminder);
+            return Optional.of(AppMapper.toReminderDTO(updatedReminder));
         }
         return Optional.empty();
-    }
-
-    // Buscar Recordatorio por título
-    public List<Reminder> searchRemindersByTitle(String title) {
-        if (title != null) {
-            return reminderRepository.findByDescriptionContainingIgnoreCase(String.valueOf(description));
-        }
-        return reminderRepository.findAll();
     }
 }

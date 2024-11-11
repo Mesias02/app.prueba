@@ -5,6 +5,8 @@ import jakarta.persistence.*
 @Entity
 @Table(name = "user")
 class User {
+    lateinit var email: String
+
     // Getters and Setters
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +18,4 @@ class User {
     @Column(nullable = false)
     var age: Int = 0
 
-    @Column(nullable = false)
-    var emergencyContact: String? = null
 }
