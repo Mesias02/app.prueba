@@ -1,3 +1,5 @@
+package com.example.app.prueba.entity;
+
 import jakarta.persistence.Entity;
 import com.example.app.prueba.entity.Activity
 import jakarta.persistence.GeneratedValue;
@@ -19,5 +21,4 @@ public class Activity {
     private Long leadId;
     private LocalDateTime timestamp;
 
-    // Getters and Setters
 }

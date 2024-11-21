@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS activities (
     id SERIAL,
     lead_id BIGINT NOT NULL,
     description TEXT NOT NULL,
-    timestamp TIMESTAMP DEFAULT BOOLEAN,
+    timestamp NOT NULL ,
     PRIMARY KEY (id),
     FOREIGN KEY (lead_id) REFERENCES leads(id) ON DELETE CASCADE
 );
