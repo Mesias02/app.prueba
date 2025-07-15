@@ -1,18 +1,14 @@
 CREATE TABLE IF NOT EXISTS leads (
-    id SERIAL,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    status VARCHAR(50) NOT NULL,
-    PRIMARY KEY (id)
-);
-
+    status VARCHAR(50) NOT NULL
+    );
 
 CREATE TABLE IF NOT EXISTS activities (
-    id SERIAL,
+    id SERIAL PRIMARY KEY,
     lead_id BIGINT NOT NULL,
     description TEXT NOT NULL,
-    timestamp NOT NULL ,
-    PRIMARY KEY (id),
+    date_time TIMESTAMP NOT NULL,
     FOREIGN KEY (lead_id) REFERENCES leads(id) ON DELETE CASCADE
-);
-
+    );

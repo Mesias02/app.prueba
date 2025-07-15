@@ -1,7 +1,10 @@
+package com.example.app.prueba.repository
 
-import com.example.app.prueba.entity.Activity
+import Activity
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
 
-interface ActivityRepository : JpaRepository<Activity?, Long?> {
-    fun findByLeadId(leadId: Long?): List<Activity?>?
+@Repository
+interface ActivityRepository : JpaRepository<Activity, Long> {
+    fun findByLeadId(leadId: Long): List<Activity>
 }
